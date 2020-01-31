@@ -58,7 +58,7 @@ public final class Main {
             @DefaultProperty
             Properties defaultProperties() {
                 Properties properties = new Properties();
-                properties.put(PropertyKey.LOGGING_LEVEL, "INFO");
+                properties.put(PropertyKey.LOGGING_LEVEL, "DEBUG");
                 properties.put(PropertyKey.RELEASE_MODE, "false");
                 properties.put(PropertyKey.DATABASE_PATH, "spyfall.sqlite");
                 return properties;

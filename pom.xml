@@ -21,7 +21,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>net.avdw.mail.Main</mainClass>
+                            <mainClass>net.avdw.spyfall.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
@@ -166,6 +166,11 @@
             <groupId>com.github.spullara.mustache.java</groupId>
             <artifactId>compiler</artifactId>
             <version>0.9.6</version>
+        </dependency>
+        <dependency>
+            <groupId>kryonet</groupId>
+            <artifactId>kryonet</artifactId>
+            <version>2.21</version>
         </dependency>
         <dependency>
             <groupId>org.liquibase</groupId>
