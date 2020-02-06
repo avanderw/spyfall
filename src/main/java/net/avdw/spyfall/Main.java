@@ -7,6 +7,9 @@ import net.avdw.liquibase.DbConnection;
 import net.avdw.liquibase.JdbcUrl;
 import net.avdw.property.*;
 import net.avdw.spyfall.cli.MainCli;
+import net.avdw.spyfall.network.NetworkTimeout;
+import net.avdw.spyfall.network.TcpPort;
+import net.avdw.spyfall.network.UdpPort;
 import org.pmw.tinylog.Logger;
 import picocli.CommandLine;
 
@@ -61,7 +64,32 @@ public final class Main {
                 properties.put(PropertyKey.LOGGING_LEVEL, "DEBUG");
                 properties.put(PropertyKey.RELEASE_MODE, "false");
                 properties.put(PropertyKey.DATABASE_PATH, "spyfall.sqlite");
+                properties.put(PropertyKey.TCP_PORT, "54555");
+                properties.put(PropertyKey.UDP_PORT, "54777");
+                properties.put(PropertyKey.NETWORK_TIMEOUT, "3000");
                 return properties;
+            }
+
+            @Provides
+            @Singleton
+            @NetworkTimeout
+            Integer networkTimeout(final PropertyResolver propertyResolver) {
+                return Integer.parseInt(propertyResolver.resolve(PropertyKey.NETWORK_TIMEOUT));
+
+            }
+
+            @Provides
+            @Singleton
+            @TcpPort
+            Integer tcpPort(final PropertyResolver propertyResolver) {
+                return Integer.parseInt(propertyResolver.resolve(PropertyKey.TCP_PORT));
+            }
+
+            @Provides
+            @Singleton
+            @UdpPort
+            Integer udpPort(final PropertyResolver propertyResolver) {
+                return Integer.parseInt(propertyResolver.resolve(PropertyKey.UDP_PORT));
             }
 
             @Provides

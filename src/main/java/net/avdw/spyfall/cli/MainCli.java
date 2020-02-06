@@ -9,7 +9,10 @@ import picocli.CommandLine;
 import java.util.List;
 
 @CommandLine.Command(name = "spyfall", description = "The spyfall cli", version = "1.0-SNAPSHOT", mixinStandardHelpOptions = true,
-        subcommands = {ConfigCli.class})
+        subcommands = {
+        ConfigCli.class,
+        ServerCli.class,
+        ConnectCli.class})
 public class MainCli implements Runnable {
 
     @Inject
