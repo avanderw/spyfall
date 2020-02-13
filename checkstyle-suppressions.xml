@@ -17,4 +17,6 @@
     <suppress checks="MagicNumber"/>
     <suppress checks="EmptyBlock" files="Interpolation"/>
     <suppress checks="DesignForExtension"/>
+    <suppress checks="FinalParameters" files="MapperImpl"/>
+    <suppress checks="ParenPad" files="MapperImpl"/>
 </suppressions>

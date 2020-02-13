@@ -59,4 +59,11 @@ public class SpyfallPlayer {
     public boolean isNotSpy() {
         return !spy;
     }
+
+    @Override
+    public String toString() {
+        return "SpyfallPlayer{" +
+                "id='" + id + '\'' +
+                '}';
+    }
 }

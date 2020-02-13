@@ -1,5 +1,8 @@
 package net.avdw.spyfall.game;
 
+import net.avdw.spyfall.game.packet.AskResponse;
+import net.avdw.spyfall.game.packet.ReadyResponse;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -33,7 +36,7 @@ public class SpyfallGameRunner {
         spyfallGame.ready(player1.getId());
         spyfallGame.ready(player2.getId());
         spyfallGame.ready(player3.getId());
-        SpyfallGame.ReadyResponse readyResponse = spyfallGame.ready(player4.getId());
+        ReadyResponse readyResponse = spyfallGame.ready(player4.getId());
         assert readyResponse.allPlayersNotReady();
         readyResponse = spyfallGame.ready(player5.getId());
         assert readyResponse.allPlayersReady();
@@ -43,7 +46,7 @@ public class SpyfallGameRunner {
         SpyfallPlayer wrongPlayer = playerList.stream().filter(p -> !p.equals(firstPlayer)).filter(p -> !p.equals(secondPlayer)).findAny().orElseThrow(UnsupportedOperationException::new);
         SpyfallPlayer thirdPlayer = playerList.stream().filter(p -> !p.equals(firstPlayer)).filter(p -> !p.equals(secondPlayer)).filter(p -> !p.equals(wrongPlayer)).findAny().orElseThrow(UnsupportedOperationException::new);
 
-        SpyfallGame.AskResponse askResponse = spyfallGame.ask(wrongPlayer.getId(), secondPlayer.getId(), "Failure: wrong person asking?");
+        AskResponse askResponse = spyfallGame.ask(wrongPlayer.getId(), secondPlayer.getId(), "Failure: wrong person asking?");
         assert askResponse.isNotSuccessful();
         askResponse = spyfallGame.ask(firstPlayer.getId(), firstPlayer.getId(), "Failure: cannot ask yourself?");
         assert askResponse.isNotSuccessful();
@@ -106,7 +109,7 @@ public class SpyfallGameRunner {
         SpyfallGame spyfallGame = new SpyfallGame();
         spyfallGame.addPlayer(player1 = new SpyfallPlayer(UUID.randomUUID().toString()));
         playerList.add(player1);
-        SpyfallGame.ReadyResponse readyResponse = spyfallGame.ready(player1.getId());
+        ReadyResponse readyResponse = spyfallGame.ready(player1.getId());
         assert readyResponse.allPlayersReady();
 
         spyfallGame.addPlayer(player2 = new SpyfallPlayer(UUID.randomUUID().toString()));
@@ -146,7 +149,7 @@ public class SpyfallGameRunner {
         guessResponse = spyfallGame.guess(player1.getId(), "");
         assert guessResponse.isSuccessful();
 
-        SpyfallGame.AskResponse askResponse = spyfallGame.ask(firstPlayer.getId(), spyPlayerId, "Failure: round has ended");
-        assert askResponse.isNotSuccessful();
+        AskResponse askQuestionResponse = spyfallGame.ask(firstPlayer.getId(), spyPlayerId, "Failure: round has ended");
+        assert askQuestionResponse.isNotSuccessful();
     }
 }

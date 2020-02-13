@@ -1,9 +1,14 @@
 package net.avdw.spyfall.game;
 
+import com.google.inject.Singleton;
+import net.avdw.spyfall.game.packet.AskResponse;
+import net.avdw.spyfall.game.packet.ReadyResponse;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+@Singleton
 public class SpyfallGame {
     private final Random random = new Random();
     private final Map<String, SpyfallPlayer> spyfallPlayerMap = new HashMap<>();
@@ -27,7 +32,7 @@ public class SpyfallGame {
         if (spyfallPlayerMap.values().stream().anyMatch(SpyfallPlayer::isNotReady)) {
             return new StartRoundResponse("Cannot start round until all players are ready!");
         }
-        if (spyfallPlayerMap.size() <=2) {
+        if (spyfallPlayerMap.size() <= 2) {
             return new StartRoundResponse("Cannot start round until you have more than three players!");
         }
 
@@ -46,7 +51,7 @@ public class SpyfallGame {
 
     public ReadyResponse ready(final String playerId) {
         spyfallPlayerMap.get(playerId).makeReady();
-        return new ReadyResponse(spyfallPlayerMap.values().stream().allMatch(SpyfallPlayer::isReady));
+        return new ReadyResponse(true, spyfallPlayerMap.values().stream().allMatch(SpyfallPlayer::isReady));
     }
 
     public AskResponse ask(final String askingPlayerId, final String askedPlayerId, final String question) {
@@ -139,7 +144,7 @@ public class SpyfallGame {
         return new GuessResponse();
     }
 
-    static class StartRoundResponse {
+    static final class StartRoundResponse {
         private final SpyfallPlayer firstPlayer;
         private final boolean started;
         private final String message;
@@ -179,46 +184,7 @@ public class SpyfallGame {
         }
     }
 
-    static class ReadyResponse {
-        private boolean allPlayersReady;
-
-        private ReadyResponse(final boolean allPlayersReady) {
-            this.allPlayersReady = allPlayersReady;
-        }
-
-        public boolean allPlayersReady() {
-            return allPlayersReady;
-        }
-
-        public boolean allPlayersNotReady() {
-            return !allPlayersReady;
-        }
-    }
-
-    static class AskResponse {
-        private boolean successful;
-        private final String message;
-
-        private AskResponse() {
-            this.successful = true;
-            this.message = "Question was asked.";
-        }
-
-        private AskResponse(final String message) {
-            this.successful = false;
-            this.message = message;
-        }
-
-        public boolean isSuccessful() {
-            return successful;
-        }
-
-        public boolean isNotSuccessful() {
-            return !successful;
-        }
-    }
-
-    static class AddPlayerResponse {
+    static final class AddPlayerResponse {
         private final String message;
         private final boolean successful;
 
@@ -237,7 +203,7 @@ public class SpyfallGame {
         }
     }
 
-    static class AccuseResponse {
+    static final class AccuseResponse {
         private final boolean successful;
         private final boolean allAccusationsMade;
         private final String message;
@@ -285,7 +251,7 @@ public class SpyfallGame {
         }
     }
 
-    static class CallAccuseSpyResponse {
+    static final class CallAccuseSpyResponse {
         private final boolean successful;
         private final String message;
 
@@ -308,7 +274,7 @@ public class SpyfallGame {
         }
     }
 
-    static class CallGuessLocationResponse {
+    static final class CallGuessLocationResponse {
         private final boolean successful;
         private final String message;
 
@@ -331,7 +297,7 @@ public class SpyfallGame {
         }
     }
 
-    static class GuessResponse {
+    static final class GuessResponse {
         private final boolean successful;
         private final String message;
 
