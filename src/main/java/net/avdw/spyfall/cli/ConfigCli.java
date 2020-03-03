@@ -1,8 +1,8 @@
 package net.avdw.spyfall.cli;
 
 import com.google.inject.Inject;
-import net.avdw.property.DefaultProperty;
-import org.pmw.tinylog.Logger;
+import net.avdw.property.Default;
+import org.tinylog.Logger;
 import picocli.CommandLine;
 
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.util.Properties;
 subcommands = {ConfigCreateCli.class})
 public class ConfigCli implements Runnable {
     @Inject
-    @DefaultProperty
+    @Default
     private Properties defaultProperties;
 
     /**

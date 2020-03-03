@@ -1,10 +1,10 @@
 package net.avdw.spyfall.cli;
 
 import com.google.inject.Inject;
-import net.avdw.property.GlobalProperty;
-import net.avdw.property.LocalProperty;
+import net.avdw.property.Global;
+import net.avdw.property.Local;
 import net.avdw.property.PropertyFileWriter;
-import org.pmw.tinylog.Logger;
+import org.tinylog.Logger;
 import picocli.CommandLine;
 
 import java.io.IOException;
@@ -14,10 +14,10 @@ import java.nio.file.Path;
 @CommandLine.Command(name = "create", description = "Create config files", mixinStandardHelpOptions = true)
 public class ConfigCreateCli implements Runnable {
     @Inject
-    @LocalProperty
+    @Local
     private Path localPropertyPath;
     @Inject
-    @GlobalProperty
+    @Global
     private Path globalPropertyPath;
     @Inject
     private PropertyFileWriter propertyFileWriter;
@@ -33,10 +33,10 @@ public class ConfigCreateCli implements Runnable {
         try {
             if (isGlobal) {
                 Files.createDirectories(globalPropertyPath.getParent());
-                propertyFileWriter.write(globalPropertyPath.toFile());
+                propertyFileWriter.write(globalPropertyPath.toFile(), "Global");
             } else {
                 Files.createDirectories(localPropertyPath.getParent());
-                propertyFileWriter.write(localPropertyPath.toFile());
+                propertyFileWriter.write(localPropertyPath.toFile(), "Local");
             }
         } catch (IOException e) {
             Logger.error(e.getMessage());

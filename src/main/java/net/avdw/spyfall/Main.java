@@ -1,6 +1,7 @@
 package net.avdw.spyfall;
 
 import net.avdw.spyfall.cli.MainCli;
+import org.tinylog.Logger;
 import picocli.CommandLine;
 
 public final class Main {

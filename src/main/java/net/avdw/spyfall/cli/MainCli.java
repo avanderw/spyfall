@@ -1,9 +1,9 @@
 package net.avdw.spyfall.cli;
 
 import com.google.inject.Inject;
-import net.avdw.liquibase.LiquibaseRunner;
-import net.avdw.spyfall.db.LocationTable;
-import net.avdw.spyfall.db.LocationTableQuery;
+import net.avdw.database.LiquibaseRunner;
+import net.avdw.spyfall.database.LocationTable;
+import net.avdw.spyfall.database.LocationTableQuery;
 import picocli.CommandLine;
 
 import java.util.List;

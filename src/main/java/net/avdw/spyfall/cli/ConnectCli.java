@@ -2,15 +2,16 @@ package net.avdw.spyfall.cli;
 
 import com.esotericsoftware.kryonet.Client;
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
+import net.avdw.spyfall.game.addplayer.AddPlayerNetworkRequest;
 import net.avdw.spyfall.game.cli.SpyfallGameMenu;
-import net.avdw.spyfall.network.NetworkTimeout;
-import net.avdw.spyfall.network.TcpPort;
-import net.avdw.spyfall.network.UdpPort;
-import org.pmw.tinylog.Logger;
+import net.avdw.spyfall.network.NetworkProperty;
+import org.tinylog.Logger;
 import picocli.CommandLine;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.util.Scanner;
 
 @CommandLine.Command(name = "connect", description = "Connect to a spyfall server", mixinStandardHelpOptions = true)
 public class ConnectCli implements Runnable {
@@ -18,13 +19,13 @@ public class ConnectCli implements Runnable {
     private String ip;
 
     @Inject
-    @TcpPort
+    @Named(NetworkProperty.TCP_PORT)
     private Integer tcpPort;
     @Inject
-    @UdpPort
+    @Named(NetworkProperty.UDP_PORT)
     private Integer udpPort;
     @Inject
-    @NetworkTimeout
+    @Named(NetworkProperty.NETWORK_TIMEOUT)
     private Integer networkTimeout;
     @Inject
     private Client client;
@@ -46,6 +47,14 @@ public class ConnectCli implements Runnable {
                 Logger.debug("Connecting to address {}", ip);
                 client.connect(networkTimeout, ip, tcpPort, udpPort);
             }
+
+
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("What is your alias?");
+            String name = scanner.next();
+            AddPlayerNetworkRequest addPlayerNetworkRequest = new AddPlayerNetworkRequest();
+            addPlayerNetworkRequest.playerName = name;
+            client.sendTCP(addPlayerNetworkRequest);
 
             spyfallGameMenu.start();
         } catch (IOException e) {

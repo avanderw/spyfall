@@ -2,7 +2,7 @@ package net.avdw.spyfall.game.cli;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import net.avdw.spyfall.GuiceFactory;
+import net.avdw.spyfall.game.Game;
 import picocli.CommandLine;
 
 import java.util.Scanner;
@@ -11,19 +11,15 @@ import java.util.Scanner;
 public class SpyfallGameMenu {
     private boolean running = false;
     private final Scanner scanner = new Scanner(System.in);
-    private CommandLine commandLine;
-    private GuiceFactory guiceFactory;
+    private CommandLine gameCommandLine;
 
     @Inject
-    SpyfallGameMenu(final GuiceFactory guiceFactory) {
-        this.guiceFactory = guiceFactory;
+    SpyfallGameMenu(@Game final CommandLine gameCommandLine) {
+        this.gameCommandLine = gameCommandLine;
     }
 
     public void start() {
-        if (commandLine == null) {
-            commandLine = new CommandLine(SpyfallGameCli.class, guiceFactory);
-        }
-
+        gameCommandLine.usage(System.out);
         running = true;
         while (running) {
             loop();
@@ -32,7 +28,7 @@ public class SpyfallGameMenu {
 
     private void loop() {
         String input = scanner.next();
-        commandLine.execute(input.split("\\s"));
+        gameCommandLine.execute(input.split("\\s"));
     }
 
     public void stop() {
