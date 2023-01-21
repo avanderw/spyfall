@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Spyfall</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+
+<body class="container">
+    <h1>Spyfall <small id="game" class="text-muted">Game #</small></h1>
+    <button id="share" class="btn btn-secondary mb-3">Share</button>
+    <div id="setup">
+        <div id="warning" class="alert alert-warning d-none" role="alert"></div>
+
+        <div id="name-input-group" class="input-group mb-3">
+            <input id="name" type="text" class="form-control" placeholder="Name">
+            <button id="join" class="btn btn-outline-primary">Join</button>
+        </div>
+        <h2 id="name-display" class="mb-3"></h2>
+
+        <h2>Players</h2>
+        <ul id="players" class="list-group list-group-flush mb-3">
+        </ul>
+
+        <button id="ready" class="btn btn-primary d-none">Ready</button>
+        <button id="start" class="btn btn-primary d-none">Start</button>
+    </div>
+
+    <div id="play" class="d-none">
+        <p class="lead text-center">You are given the role of <strong id="role"></strong>. Your location is a <strong id="location"></strong>. Good luck! Your time starts now.</p>
+        
+        
+    </div>
+
+    <script src="game.js"></script>
+</body>
