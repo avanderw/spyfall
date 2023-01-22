@@ -146,17 +146,21 @@ function handleStart(msg) {
     document.getElementById("role").innerText = msg.role;
 }
 
-document.getElementById('share').addEventListener('click', ()=>{
+document.getElementById('share').addEventListener('click', () => {
     if (navigator.share) {
         navigator.share({
             title: `Spyfall #${gameID}`,
             text: "Join my game of Spyfall!",
             url: window.location.href
         })
-        .then(() => console.log('Successful share'))
-        .catch((error) => console.log('Error sharing', error));
+            .then(() => console.log('Successful share'))
+            .catch((error) => console.log('Error sharing', error));
     } else {
         console.log('Web Share API not supported');
-        location.href = "whatsapp://send?text=" + encodeURIComponent(`Join my game of Spyfall! ${window.location.href}`);
+        try {
+            location.href = "whatsapp://send?text=" + encodeURIComponent(`Join my game of Spyfall! ${window.location.href}`);
+        } catch (e) {
+            alert("You can share a link to this page: " + window.location.href);
+        }
     }
 });
