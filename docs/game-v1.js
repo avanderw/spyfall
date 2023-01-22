@@ -157,5 +157,6 @@ document.getElementById('share').addEventListener('click', ()=>{
         .catch((error) => console.log('Error sharing', error));
     } else {
         console.log('Web Share API not supported');
+        location.href = "whatsapp://send?text=" + encodeURIComponent(`Join my game of Spyfall! ${window.location.href}`);
     }
 });
