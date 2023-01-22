@@ -147,7 +147,6 @@ function handleStart(msg) {
 }
 
 document.getElementById('share').addEventListener('click', ()=>{
-    navigator.clipboard.writeText(window.location.href);
     if (navigator.share) {
         navigator.share({
             title: `Spyfall #${gameID}`,
