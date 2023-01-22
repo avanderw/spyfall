@@ -6,7 +6,7 @@ if ("WebSocket" in window) {
 
 let thisPlayerID;
 let gameID = getQueryParameter("id");
-document.getElementById("game").innerText = `Game #${gameID}`;
+document.getElementById("game").innerText = `#${gameID}`;
 
 let ws = new WebSocket("ws://avanderw.tplinkdns.com:8080");
 ws.onopen = () => {
@@ -72,9 +72,17 @@ function handleClose(msg) {
 const joinButton = document.getElementById("join");
 joinButton.addEventListener("click", () => {
     thisPlayerID = document.getElementById("name").value;
+    if (thisPlayerID == "") {
+        return;
+    }
     let request = { command: "join", gameID: gameID, playerID: thisPlayerID };
     ws.send(JSON.stringify(request));
     joinButton.disabled = true;
+});
+document.getElementById("name").addEventListener("keyup", (event) => {
+    if (event.key === "Enter") {
+        joinButton.click();
+    }
 });
 
 function handleJoin(msg) {
@@ -89,9 +97,11 @@ function handleJoin(msg) {
     if (msg.request.playerID == thisPlayerID) {
         document.getElementById("name-input-group").classList.add("d-none");
         const nameDisplay = document.getElementById("name-display");
-        nameDisplay.innerText = thisPlayerID;
+        nameDisplay.innerText = `${thisPlayerID}`;
         readyButton.classList.remove("d-none");
+        readyButton.focus();
         nameDisplay.classList.remove("d-none");
+        document.getElementById("greet").classList.remove("d-none");
     }
     document.getElementById("players").appendChild(player);
 }
@@ -101,6 +111,7 @@ readyButton.addEventListener("click", () => {
     let request = { command: "ready", gameID: gameID, playerID: thisPlayerID };
     readyButton.classList.add("d-none");
     startButton.classList.remove("d-none")
+    startButton.focus();
     ws.send(JSON.stringify(request));
 });
 
@@ -134,3 +145,18 @@ function handleStart(msg) {
     document.getElementById("location").innerText = msg.location;
     document.getElementById("role").innerText = msg.role;
 }
+
+document.getElementById('share').addEventListener('click', ()=>{
+    navigator.clipboard.writeText(window.location.href);
+    if (navigator.share) {
+        navigator.share({
+            title: `Spyfall #${gameID}`,
+            text: "Join my game of Spyfall!",
+            url: window.location.href
+        })
+        .then(() => console.log('Successful share'))
+        .catch((error) => console.log('Error sharing', error));
+    } else {
+        console.log('Web Share API not supported');
+    }
+});

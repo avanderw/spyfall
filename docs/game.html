@@ -9,31 +9,44 @@
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 
-<body class="container">
-    <h1>Spyfall <small id="game" class="text-muted">Game #</small></h1>
-    <button id="share" class="btn btn-secondary mb-3">Share</button>
-    <div id="setup">
-        <div id="warning" class="alert alert-warning d-none" role="alert"></div>
-
-        <div id="name-input-group" class="input-group mb-3">
-            <input id="name" type="text" class="form-control" placeholder="Name">
-            <button id="join" class="btn btn-outline-primary">Join</button>
+<body>
+    <nav class="navbar navbar-dark bg-dark mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Spyfall <small id="game">#</small></a>
+            <button id="share" class="btn btn-secondary">Share</button>
         </div>
-        <h2 id="name-display" class="mb-3"></h2>
+    </nav>
+    <div class="container">
 
-        <h2>Players</h2>
-        <ul id="players" class="list-group list-group-flush mb-3">
-        </ul>
+        <div id="setup" class="mb-3">
+            <p id="greet" class="d-none">Welcome agent <strong id="name-display"></strong>. Wait for your team to
+                assemble.</p>
+            <div id="warning" class="alert alert-warning d-none" role="alert"></div>
 
-        <button id="ready" class="btn btn-primary d-none">Ready</button>
-        <button id="start" class="btn btn-primary d-none">Start</button>
+            <div id="name-input-group" class="input-group mb-3">
+                <input id="name" type="text" class="form-control" placeholder="Enter your name to start playing" autofocus>
+                <button id="join" class="btn btn-outline-primary">Join</button>
+            </div>
+
+            <h2>Team Status</h2>
+            <ul id="players" class="list-group list-group-flush mb-3">
+            </ul>
+
+            <p>Anyone can start the game once you have at least four ready players.</p>
+            <div class="text-center">
+                <button id="ready" class="btn btn-primary d-none">Ready</button>
+                <button id="start" class="btn btn-primary d-none">Start</button>
+            </div>
+        </div>
+
+        <div id="play" class="d-none mb-3">
+            <p class="lead text-center">You are given the role of <strong id="role"></strong>. Your location is a
+                <strong id="location"></strong>. Good luck! Your time starts now.
+            </p>
+        </div>
+
+        <p class="text-muted text-end mb-3">Visit <a href="https://avanderw.co.za/">avanderw.co.za</a> for more
+            projects.</p>
     </div>
-
-    <div id="play" class="d-none">
-        <p class="lead text-center">You are given the role of <strong id="role"></strong>. Your location is a <strong id="location"></strong>. Good luck! Your time starts now.</p>
-        
-        
-    </div>
-
     <script src="game.js"></script>
 </body>

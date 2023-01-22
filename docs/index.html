@@ -9,21 +9,42 @@
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 
-<body class="container">
-    <h1>Spyfall</h1>
-    <p>
-        Spyfall is a party game in which players take on the roles of secret agents trying to identify a spy among their ranks. 
-        Each round, players are dealt location cards that indicate where they are (e.g. "on a cruise ship," "at a casino"). 
-        One player is secretly designated as the spy and does not receive a location card. 
-        The other players ask each other questions in an attempt to figure out who the spy is, while the spy tries to blend in and avoid detection. 
-        The game ends when either the spy is correctly identified or the round time runs out.
-    </p>
-    <button id="create" class="btn btn-primary mb-3">Create</button>
-    <div class="input-group mb-3">
-        <input id="game" type="text" class="form-control" placeholder="Game ID">
-        <button id="join" class="btn btn-outline-primary">Join</button>
-    </div>
+<body>
+    <nav class="navbar navbar-dark bg-dark mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Spyfall</a>
+            <button id="butInstall" class="btn btn-primary" style="display:none">Install</button>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="input-group mb-3">
+            <input id="game" type="text" class="form-control" placeholder="Game ID" autofocus
+                autocapitalize="characters">
+            <button id="join" class="btn btn-outline-primary">Join</button>
+        </div>
+        <button id="create" class="btn btn-primary mb-3">Create new game</button>
+        <p>
+            Spyfall is a party game in which players take on the roles of secret agents trying to identify a spy among
+            their
+            ranks.
+        </p>
+        <p>
+            Each round, players are dealt location cards that indicate where they are (e.g. "on a cruise ship," "at a
+            casino").
+            One player is secretly designated as the spy and does not receive a location card.
+            The other players ask each other questions in an attempt to figure out who the spy is, while the spy tries
+            to
+            blend in and avoid detection.
+        </p>
+        <p>
+            The game ends when either the spy is correctly identified or the round time runs out.
+        </p>
 
+        <p class="text-muted text-end mb-3">Visit <a href="https://avanderw.co.za/">avanderw.co.za</a> for more
+            projects.</p>
+
+    </div>
+    </div>
     <script src="index.js"></script>
 </body>
 
