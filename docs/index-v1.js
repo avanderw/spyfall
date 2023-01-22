@@ -28,5 +28,5 @@ document.getElementById("create").addEventListener("click", () => {
 });
 
 document.getElementById("join").addEventListener("click", () => {
-    location.href = `game.html?id=${document.getElementById("game").value}`;
+    location.href = `game.html?id=${document.getElementById("game").value.toUpperCase()}`;
 });
