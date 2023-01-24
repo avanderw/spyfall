@@ -8,7 +8,7 @@ let thisPlayerID;
 let gameID = getQueryParameter("id");
 document.getElementById("game").innerText = `#${gameID}`;
 
-let ws = new WebSocket("ws://avanderw.tplinkdns.com:8080");
+let ws = new WebSocket("wss://avanderw.tplinkdns.com:8080");
 ws.onopen = () => {
     console.log("Connection is opened...");
     ws.send(JSON.stringify({ command: "open", gameID: gameID }));

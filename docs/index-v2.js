@@ -4,7 +4,7 @@ if ("WebSocket" in window) {
     console.log("Websocket is not supported by your Browser!");
 }
 
-let ws = new WebSocket("ws://avanderw.tplinkdns.com:8080");
+let ws = new WebSocket("wss://avanderw.tplinkdns.com:8080");
 ws.onopen = () => {
     console.log("Connection is opened...");
 };
