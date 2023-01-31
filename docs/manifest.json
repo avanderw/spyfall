@@ -1,0 +1,43 @@
+{
+    "short_name": "Spyfall",
+    "name": "Spyfall: Ask probing questions to detect the Spy.",
+    "icons": [
+      {
+        "src": "/spyfall/icon.svg",
+        "type": "image/svg+xml",
+        "purpose": "any",
+        "sizes": "any"
+      },
+      {
+        "src": "/spyfall/icon-144.png",
+        "type": "image/png",
+        "sizes": "144x144"
+      },
+      {
+        "src": "/spyfall/icon-512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ],
+    "id": "/spyfall/?source=pwa",
+    "start_url": "/spyfall/?source=pwa",
+    "scope": "/spyfall/",
+    "background_color": "#343a40",
+    "display": "standalone",
+    "theme_color": "#343a40",
+    "description": "Ask probing questions to detect the Spy.",
+    "screenshots": [
+      {
+        "src": "screenshot.png",
+        "type": "image/jpg",
+        "sizes": "1080x2400"
+      }
+    ],
+    "dir": "ltr",
+    "lang": "en",
+    "orientation": "portrait-primary",
+    "categories": [
+      "entertainment",
+      "social"
+    ]
+  }
