@@ -7,6 +7,7 @@ if ("WebSocket" in window) {
 let thisPlayerID;
 let gameID = getQueryParameter("id");
 document.getElementById("game").innerText = `#${gameID}`;
+document.getElementById("game-code").innerText = `#${gameID}`;
 
 let ws = new WebSocket("wss://avanderw.tplinkdns.com:8080");
 ws.onopen = () => {

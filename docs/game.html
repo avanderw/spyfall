@@ -19,22 +19,25 @@
     <div class="container">
 
         <div id="setup" class="mb-3">
-            <p id="greet" class="d-none">Welcome agent <strong id="name-display"></strong>. Wait for your team to
-                assemble.</p>
             <div id="warning" class="alert alert-warning d-none" role="alert"></div>
 
+            <p>Anyone can start the game once you have at least four ready players. Players can join this game with the
+                code <span id="game-code"></span>. In a browser you can share the link and on a mobile device you can
+                use the share button in the top right.</p>
             <div id="name-input-group" class="input-group mb-3">
-                <input id="name" type="text" class="form-control" placeholder="Enter your name to start playing" autofocus>
-                <button id="join" class="btn btn-outline-primary">Join</button>
+                <input id="name" type="text" class="form-control" placeholder="Enter your name to start playing"
+                    autofocus>
+                <button id="join" class="btn btn-outline-primary">Connect</button>
             </div>
 
-            <h2>Team Status</h2>
+            <p id="greet" class="d-none">Welcome agent <strong id="name-display"></strong>. Wait for your team to
+                assemble.</p>
+            <h2>Connected Players</h2>
             <ul id="players" class="list-group list-group-flush mb-3">
             </ul>
 
-            <p>Anyone can start the game once you have at least four ready players.</p>
             <div class="text-center">
-                <button id="ready" class="btn btn-primary d-none">Ready</button>
+                <button id="ready" class="btn btn-primary d-none">Assemble</button>
                 <button id="start" class="btn btn-primary d-none">Start</button>
             </div>
         </div>
