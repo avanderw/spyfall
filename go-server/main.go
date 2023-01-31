@@ -12,7 +12,7 @@ import (
 
 func main() {
 	fmt.Println("Server started, waiting for connection on port 8080...")
-	http.ListenAndServe(":8080", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	http.ListenAndServeTLS(":8080", "avanderw_tplinkdns_com.crt", "private.key", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		conn, _, _, err := ws.UpgradeHTTP(r, w)
 		fmt.Println(r.RemoteAddr, "connected")
 		if err != nil {
