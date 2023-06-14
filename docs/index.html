@@ -94,7 +94,7 @@
         </section>
         <nav class="navbar bg-dark fixed-bottom bg-body-teriary" data-bs-theme="dark" aria-label="Footer">
             <div class="container-fluid">
-                <span class="navbar-text">#{{id}}</span>
+                <span class="navbar-text">#{{id}}<button @click="newGame" class="btn btn-outline-primary mx-3">New seed</button></span>
                 <span class="navbar-text">Round {{round}}<span v-if="player !== -1">; Position {{player}}</span></span>
 
             </div>
@@ -258,6 +258,9 @@
                     } else {
                         console.log('Web Share API not supported');
                     }
+                },
+                newGame: function() {
+                    window.location.href = "?id=" + generateId();
                 }
             }
         }).mount('#app');

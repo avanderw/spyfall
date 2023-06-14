@@ -11,8 +11,8 @@
     <h1>Test page</h1>
     <template v-for="loc in data">
         <template v-for="role in loc.Roles">
-            <h2 @click="clipboard" :class="{'d-none': urlExists(roleImg(loc, role))}">{{roleImg(loc, role)}}</h2>
-            <img :src="roleImg(loc, role)" alt="Test role image" class="rounded img-fluid mx-auto d-none">
+            <h2 @click="clipboard" :class="{'d-none': !urlExists(roleImg(loc, role))}">{{roleImg(loc, role)}}</h2>
+            <img :src="roleImg(loc, role)" alt="Test role image" class="rounded img-fluid mx-auto">
         </template>
     </template>
     <p @click="clipboard">
