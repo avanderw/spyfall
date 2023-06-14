@@ -3,7 +3,13 @@
 
 <head>
     <title>Spyfall - find the spy!</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="og:url" content="https://avanderw.co.za/spyfall/">
+    <meta name="og:type" content="website" />
+    <meta name="og:image" content="assets/spy.png" />
+    <meta name="og:title" content="Spyfall - find the spy!" />
+    <meta name="og:description" content="Unleash your inner spy with our ultimate Spyfall Assistant app! Perfect for thrilling social gatherings, our app provides secret roles, location hints, and time management tools to enhance your Spyfall experience. Uncover spies, interrogate suspects, and test your deduction skills in this immersive and suspenseful party game. Download now and embark on a covert adventure like never before!" />
     <link rel="cononical" href="https://avanderw.co.za/spyfall/">
     <link href="bootstrap.min.css" rel="stylesheet">
     <script src="vue.global.prod.js"></script>
@@ -172,12 +178,10 @@
                 document.getElementById('app').classList.remove('d-none');
                 const connection = new WebSocket('ws://localhost:6586');
                 connection.onopen = () => {
-                    console.log('connection opened');
                     this.api = new OnlineApi(connection);
                     this.state = 'online';
                 };
                 connection.onclose = () => {
-                    console.log('connection closed');
                     this.seed = cyrb128(this.id);
                     this.offlineSetup();
                 };
@@ -185,7 +189,6 @@
                     console.log(message);
                 };
                 connection.onerror = () => {
-                    console.log('error');
                     this.state = 'offline';
                 };
             },
