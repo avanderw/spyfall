@@ -1,5 +1,5 @@
 const CACHE_NAME = 'cache';
-const VERSION = "v1.0.0";
+const VERSION = "v2.0.0";
 const OFFLINE_URL = 'offline.html';
 const URLS_TO_CACHE = [];
 
@@ -41,10 +41,12 @@ self.addEventListener('fetch', function (event) {
       try {
         const preloadResponse = await event.preloadResponse;
         if (preloadResponse) {
+          console.log('[Service Worker] Using navigation preload')
           return preloadResponse;
         }
 
         const networkResponse = await fetch(event.request);
+        console.log('[Service Worker] Fetch OK');
         return networkResponse;
       } catch (error) {
         console.log('[Service Worker] Fetch failed; returning offline page instead.', error);
