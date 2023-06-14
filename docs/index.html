@@ -39,12 +39,24 @@
             <h1>Checking connectivity...</h1>
             <img src="assets/spy.png" alt="Loading image" class="rounded img-fluid mx-auto">
         </section>
+        <section v-if="state === 'init-count'" class="container">
+            <h2>How many people will be playing?</h2>
+            <template v-for="i in 4">
+                <button type="button" class="btn btn-outline-primary m-1" @click="chooseCount(i+4)">{{i+4}} Players</button>
+            </template>
+        </section>
+        <section v-if="state === 'init-player'" class="container">
+            <h2>Which player are you?</h2>
+            <template v-for="i in Number(numPlayers)">
+                <button type="button" class="btn btn-outline-primary m-1" @click="choosePlayer(i)">Player {{i}}</button>
+            </template>
+        </section>
         <section v-if="state === 'setup'" class="container">
             <h2>Round {{round}}</h2>
 
             <div class="mb-3">
                 <button type="button" class="btn btn-outline-secondary mx-3" @click="decRound">Previous round</button>
-                <button type="button" class="btn btn-outline-primary" @click="incRound">Next round</button>
+                <button type="button" class="btn btn-outline-secondary" @click="incRound">Next round</button>
             </div>
 
             <div class="mb-3">
@@ -59,7 +71,7 @@
                 <template v-for="i in Number(numPlayers)">
                     <input type="radio" class="btn-check" name="playerRadio" :id="'player'+i" :value="i"
                         autocomplete="off" v-model="player">
-                    <label class="btn btn-outline-primary mx-1" :for="'player'+i">Player&nbsp;{{i}}</label>
+                    <label class="btn btn-outline-secondary m-1" :for="'player'+i">Player&nbsp;{{i}}</label>
                 </template>
             </div>
 
@@ -93,10 +105,11 @@
                     state: 'loading',
                     seed: -1,
                     rand: function () { return -1; },
-                    numPlayers: 7,
+                    numPlayers: -1,
                     round: 1,
                     player: -1,
                     id: getQueryParameter('id'),
+                    timeoutId: -1,
                 }
             },
             computed: {
@@ -143,10 +156,11 @@
                         return;
                     }
                     this.timer = 0;
+                    clearTimeout(this.timeoutId);
                 },
                 timer: function (newTime) {
                     if (newTime > 0) {
-                        setTimeout(() => this.timer--, 1000);
+                        this.timeoutId = setTimeout(() => this.timer--, 1000);
                     }
                 }
             },
@@ -163,7 +177,7 @@
                 connection.onclose = () => {
                     console.log('connection closed');
                     this.seed = cyrb128(this.id);
-                    this.state = 'setup';
+                    this.offlineSetup();
                 };
                 connection.onmessage = (message) => {
                     console.log(message);
@@ -174,6 +188,17 @@
                 };
             },
             methods: {
+                offlineSetup: function () {
+                    this.state = "init-count";
+                },
+                chooseCount: function (num) {
+                    this.numPlayers = num;
+                    this.state = "init-player";
+                },
+                choosePlayer: function (idx) {
+                    this.player = idx;
+                    this.state = "setup";
+                },
                 incRound: function () {
                     this.round++;
                 },
