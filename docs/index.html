@@ -27,7 +27,7 @@
 </head>
 
 <body>
-    <div id="app">
+    <div id="app" class="d-none">
         <nav class="navbar bg-dark sticky-top bg-body-teriary mb-3" data-bs-theme="dark" aria-label="Header">
             <div class="container-fluid">
                 <span class="navbar-brand mb-0 h1">Spyfall - find the spy!</span>
@@ -167,7 +167,9 @@
             created: function () {
                 if (this.id === '') {
                     window.location.href = "?id=" + generateId();
+                    return;
                 }
+                document.getElementById('app').classList.remove('d-none');
                 const connection = new WebSocket('ws://localhost:6586');
                 connection.onopen = () => {
                     console.log('connection opened');
