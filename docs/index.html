@@ -182,7 +182,7 @@
                     return;
                 }
                 document.getElementById('app').classList.remove('d-none');
-                const connection = new WebSocket('ws://localhost:6586');
+                const connection = new WebSocket('wss://localhost:6586');
                 connection.onopen = () => {
                     this.api = new OnlineApi(connection);
                     this.state = 'online';
