@@ -97,11 +97,14 @@
         <nav class="navbar bg-dark fixed-bottom bg-body-teriary" data-bs-theme="dark" aria-label="Footer">
             <div class="container-fluid">
                 <span class="navbar-text">
-                    <button @click="setSeed" class="btn btn-outline-primary">#{{id}}</button>
-                    <button @click="newGame" class="btn btn-outline-primary mx-3">New seed</button>
+                    <div class="input-group">
+                        <button @click="newGame" class="btn btn-outline-primary">New</button>
+                        <span class="input-group-text" id="basic-addon1">#</span>
+                        <input type="text" class="form-control" v-model="id" placeholder="Seed" style="width: 5em">
+                        <button @click="setSeed" class="btn btn-outline-secondary">Set</button>
+                    </div>
                 </span>
                 <span class="navbar-text">Round {{round}}<span v-if="player !== -1">; Position {{player}}</span></span>
-
             </div>
         </nav>
     </div>
@@ -263,6 +266,9 @@
                 },
                 newGame: function () {
                     window.location.href = "?id=" + generateId();
+                },
+                setSeed: function () {
+                    window.location.href = "?id=" + this.id;
                 },
                 canShare() {
                     return navigator?.share !== undefined;
