@@ -9,7 +9,8 @@
     <meta name="og:type" content="website" />
     <meta name="og:image" property="og:image" content="assets/spy.png" />
     <meta name="og:title" content="Spyfall - find the spy!" />
-    <meta name="og:description" content="Unleash your inner spy with our ultimate Spyfall Assistant app! Perfect for thrilling social gatherings, our app provides secret roles, location hints, and time management tools to enhance your Spyfall experience. Uncover spies, interrogate suspects, and test your deduction skills in this immersive and suspenseful party game. Download now and embark on a covert adventure like never before!" />
+    <meta name="og:description"
+        content="Unleash your inner spy with our ultimate Spyfall Assistant app! Perfect for thrilling social gatherings, our app provides secret roles, location hints, and time management tools to enhance your Spyfall experience. Uncover spies, interrogate suspects, and test your deduction skills in this immersive and suspenseful party game. Download now and embark on a covert adventure like never before!" />
     <link rel="cononical" href="https://avanderw.co.za/spyfall/">
     <link href="bootstrap.min.css" rel="stylesheet">
     <script src="vue.global.prod.js"></script>
@@ -37,7 +38,7 @@
         <nav class="navbar bg-dark sticky-top bg-body-teriary mb-3" data-bs-theme="dark" aria-label="Header">
             <div class="container-fluid">
                 <span class="navbar-brand mb-0 h1">Spyfall - find the spy!</span>
-                <button class="btn btn-secondary" :class="{'d-none': canShare }"><img src="icons/share.svg"
+                <button class="btn btn-secondary" :class="{'d-none': !canShare() }"><img src="icons/share.svg"
                         alt="Share image" style="width:1em;" @click="share" /></button>
             </div>
         </nav>
@@ -47,8 +48,9 @@
         </section>
         <section v-if="state === 'init-count'" class="container">
             <h2>How many people will be playing?</h2>
-            <template v-for="i in 4">
-                <button type="button" class="btn btn-outline-primary m-1" @click="chooseCount(i+4)">{{i+4}} Players</button>
+            <template v-for="i in 5">
+                <button type="button" class="btn btn-outline-primary m-1" @click="chooseCount(i+3)">{{i+3}}
+                    Players</button>
             </template>
         </section>
         <section v-if="state === 'init-player'" class="container">
@@ -94,7 +96,10 @@
         </section>
         <nav class="navbar bg-dark fixed-bottom bg-body-teriary" data-bs-theme="dark" aria-label="Footer">
             <div class="container-fluid">
-                <span class="navbar-text">#{{id}}<button @click="newGame" class="btn btn-outline-primary mx-3">New seed</button></span>
+                <span class="navbar-text">
+                    <button @click="setSeed" class="btn btn-outline-primary">#{{id}}</button>
+                    <button @click="newGame" class="btn btn-outline-primary mx-3">New seed</button>
+                </span>
                 <span class="navbar-text">Round {{round}}<span v-if="player !== -1">; Position {{player}}</span></span>
 
             </div>
@@ -150,9 +155,6 @@
                 seconds() {
                     const seconds = this.timer % 60;
                     return seconds < 10 ? "0" + seconds : seconds;
-                },
-                canShare() {
-                    return navigator.canShare();
                 }
             },
             watch: {
@@ -247,7 +249,7 @@
                     return Math.floor(this.rand() * max);
                 },
                 share: function () {
-                    if (navigator.share) {
+                    if (navigator?.share) {
                         navigator.share({
                             title: 'Share Spyfall#' + this.id,
                             text: "Join my game of Spyfall#" + this.id,
@@ -259,8 +261,11 @@
                         console.log('Web Share API not supported');
                     }
                 },
-                newGame: function() {
+                newGame: function () {
                     window.location.href = "?id=" + generateId();
+                },
+                canShare() {
+                    return navigator?.share !== undefined;
                 }
             }
         }).mount('#app');
