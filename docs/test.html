@@ -8,11 +8,17 @@
 </head>
 
 <body>
-    <h1>Test page</h1>
+    <h1>All images</h1>
     <template v-for="loc in data">
         <template v-for="role in loc.Roles">
-            <h2 @click="clipboard" :class="{'d-none': !urlExists(roleImg(loc, role))}">{{roleImg(loc, role)}}</h2>
-            <img :src="roleImg(loc, role)" alt="Test role image" class="rounded img-fluid mx-auto">
+            <img :src="roleImg(loc, role)" alt="Test role image" class="rounded img-fluid mx-auto"
+                :class="{'d-none': !urlExists(roleImg(loc, role))}">
+        </template>
+    </template>
+    <h2>Prompts for missing images</h2>
+    <template v-for="loc in data">
+        <template v-for="role in loc.Roles">
+            <h3 @click="clipboard" :class="{'d-none': urlExists(roleImg(loc, role))}">{{roleImg(loc, role)}}</h3>
         </template>
     </template>
     <p @click="clipboard">
@@ -46,7 +52,7 @@
                     let prompts = [];
                     locations.forEach(l => {
                         l.Roles.forEach(r => {
-                            let prompt = `focus: (${r} person), in frame, <lora:add_detail:0.75>`;
+                            let prompt = `focus: (${r} person), location: ${l.Name}, fully clothed, masterpiece, <lora:add_detail:0.75>`;
                             let roleImg = this.roleImg(l, r);
                             if (!this.urlExists(roleImg)) {
                                 prompts.push(prompt);
