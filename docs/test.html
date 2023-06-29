@@ -52,11 +52,12 @@
                     let prompts = [];
                     locations.forEach(l => {
                         l.Roles.forEach(r => {
-                            let prompt = `focus: (${r} person), location: ${l.Name}, fully clothed, masterpiece, <lora:add_detail:0.75>`;
+                            let prompt = `(focus: ${r}, location: ${l.Name}:1.5), <lora:add_detail:1>, front view, face focus, (masterpiece, top quality, best quality, official art, beautiful and aesthetic:1.2),`;
+                            // let prompt = `focus: (${r} person), location: ${l.Name}, fully clothed, masterpiece, <lora:add_detail:0.75>`;
                             let roleImg = this.roleImg(l, r);
-                            if (!this.urlExists(roleImg)) {
+                            //if (!this.urlExists(roleImg)) {
                                 prompts.push(prompt);
-                            }
+                            //}
                         });
                     });
                     return prompts;
