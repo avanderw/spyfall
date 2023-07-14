@@ -221,13 +221,15 @@
                 start: function () {
                     this.baseline();
                     this.simulate(this.round - 1);
-
                     this.location = locations[this.random(locations.length)];
-                    this.role = this.location.Roles[(this.random(this.location.Roles.length) + this.player) % this.location.Roles.length];
+
                     this.spy = this.random(this.numPlayers) + 1;
                     if (this.spy === this.player) {
                         this.role = 'Spy';
                         this.location = { Name: "unknown location..." };
+                    } else {
+                        const roleShift = this.player >= this.spy ? this.player - 1 : this.player;
+                        this.role = this.location.Roles[(this.spy + roleShift) % this.location.Roles.length];
                     }
                     this.state = 'play';
                 },
@@ -243,7 +245,6 @@
                 },
                 simulate: function (rounds) {
                     for (let i = 0; i < rounds; i++) {
-                        this.random();
                         this.random();
                         this.random();
                     }
