@@ -60,7 +60,7 @@
             </template>
         </section>
         <section v-if="state === 'setup'" class="container">
-            <h2>Round {{round}}</h2>
+            <h2>Round {{round.counter}}</h2>
 
             <div class="mb-3">
                 <button type="button" class="btn btn-outline-secondary mx-3" @click="decRound">Previous round</button>
@@ -83,7 +83,8 @@
                 </template>
             </div>
 
-            <button type="button" class="btn btn-primary" :disabled="player === -1" @click="start">Play round</button>
+            <button type="button" class="btn btn-primary" :disabled="player === -1" @click="startRound">Play
+                round</button>
         </section>
         <section v-if="state === 'play'" class="container text-center fadein">
             <img :src="roleImg" alt="Location image" class="rounded img-fluid mx-auto">
@@ -104,7 +105,8 @@
                         <button @click="setSeed" class="btn btn-outline-secondary">Set</button>
                     </div>
                 </span>
-                <span class="navbar-text">Round {{round}}<span v-if="player !== -1">; Position {{player}}</span></span>
+                <span class="navbar-text">Round {{round.counter}}<span v-if="player !== -1">; Position
+                        {{player}}</span></span>
             </div>
         </nav>
     </div>
@@ -115,15 +117,19 @@
                 return {
                     location: "",
                     role: "",
-                    timer: 0,
                     state: 'loading',
                     seed: -1,
                     rand: function () { return -1; },
                     numPlayers: -1,
-                    round: 1,
                     player: -1,
                     id: getQueryParameter('id'),
                     timeoutId: -1,
+                    round: {
+                        counter: 1,
+                        startTime: -1,
+                        roundSecs: 600, // round time in seconds
+                        timer: 0,
+                    },
                 }
             },
             computed: {
@@ -153,27 +159,30 @@
                     return "assets/" + location + "-" + role + ".png";
                 },
                 minutes() {
-                    return Math.floor(this.timer / 60);
+                    return Math.floor(this.round.timer / 60);
                 },
                 seconds() {
-                    const seconds = this.timer % 60;
+                    const seconds = this.round.timer % 60;
                     return seconds < 10 ? "0" + seconds : seconds;
                 }
             },
             watch: {
                 state: function (newState) {
                     if (newState === 'play') {
-                        this.timer = 600;
+                        this.round.timer = this.round.roundSecs;
+                        this.round.startTime = Date.now();
                         return;
                     }
-                    this.timer = 0;
+                    this.round.timer = 0;
                     clearTimeout(this.timeoutId);
                 },
-                timer: function (newTime) {
+                "round.timer": function (newTime) {
                     if (newTime > 0) {
-                        this.timeoutId = setTimeout(() => this.timer--, 1000);
+                        const deltaTimeMs = Date.now() - this.round.startTime;
+                        const timeLeft = this.round.roundSecs - Math.floor(deltaTimeMs / 1000);
+                        this.timeoutId = setTimeout(() => this.round.timer = timeLeft - 1, 1000);
                     }
-                }
+                },
             },
             created: function () {
                 if (this.id === '') {
@@ -210,17 +219,17 @@
                     this.state = "setup";
                 },
                 incRound: function () {
-                    this.round++;
+                    this.round.counter++;
                 },
                 decRound: function () {
-                    this.round--;
-                    if (this.round < 1) {
-                        this.round = 1;
+                    this.round.counter--;
+                    if (this.round.counter < 1) {
+                        this.round.counter = 1;
                     }
                 },
-                start: function () {
+                startRound: function () {
                     this.baseline();
-                    this.simulate(this.round - 1);
+                    this.simulate(this.round.counter - 1);
                     this.location = locations[this.random(locations.length)];
 
                     this.spy = this.random(this.numPlayers) + 1;
@@ -234,7 +243,7 @@
                     this.state = 'play';
                 },
                 nextRound: function () {
-                    this.round++;
+                    this.round.counter++;
                     this.state = "setup";
                 },
                 cancelRound: function () {
