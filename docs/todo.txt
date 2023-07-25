@@ -1,2 +1,3 @@
 2023-06-29 SHOULD implement a PWA caching strategy https://developer.chrome.com/docs/workbox/caching-strategies-overview/
 2023-06-29 MUST implement a server lookup to connect players to minimize game setup
+2023-07-25 SHOULD add a help section explaining how to play the game
