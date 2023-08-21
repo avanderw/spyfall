@@ -1,7 +1,7 @@
 2023-06-29 SHOULD implement a PWA caching strategy https://developer.chrome.com/docs/workbox/caching-strategies-overview/
-2023-06-29 SHOULD implement a server lookup to connect players to minimize game setup
+2023-06-29 COULD implement a server lookup to connect players to minimize game setup
 2023-07-25 SHOULD add a help section explaining how to play the game
-2023-08-19 MUST include the number of players in the share
+x 2023-08-21 2023-08-19 MUST include the number of players in the share
 2023-08-19 MUST include a demo area telling players how to play
 x 2023-08-21 2023-08-19 MUST include a list of all locations for the spy
-2023-08-19 SHOULD include a description of your goal as a spy or player
+x 2023-08-21 2023-08-19 SHOULD include a description of your goal as a spy or player

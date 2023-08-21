@@ -68,7 +68,7 @@
             </div>
 
             <div class="mb-3">
-                <h3>{{numPlayers}} player round</h3>
+                <h3>There are {{numPlayers}} players</h3>
                 <input type="range" class="form-range" min="4" max="8" step="1" id="player-count" v-model="numPlayers">
             </div>
 
@@ -83,15 +83,17 @@
                 </template>
             </div>
 
+            <p>The last spy is the first player. Otherwise the most suspicious-looking player is first.</p>
             <button type="button" class="btn btn-primary" :disabled="player === -1" @click="startRound">Play
                 round</button>
         </section>
         <section v-if="state === 'play'" class="container text-center fadein">
             <img :src="roleImg" alt="Location image" class="rounded img-fluid mx-auto">
             <h3>You are {{roleName}} at {{locationName}}.</h3>
-            <h5>Your time starts now.</h5>
-            <h2>{{minutes}}:{{seconds}}</h2>
+            <p v-if="roleName === 'a spy'">You need to determine the location. Everyone is at this location.</p>
+            <p v-if="roleName !== 'a spy'">You need to find the spy. The spy does not know your location.</p>
             <h5>Good luck! Have fun.</h5>
+            <h2>{{minutes}}:{{seconds}}</h2>
             <button v-if="roleName === 'a spy'" type="button" class="btn btn-info" data-bs-toggle="modal"
                 data-bs-target="#exampleModal">
                 Locations
