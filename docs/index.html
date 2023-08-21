@@ -213,6 +213,8 @@
                         const deltaTimeMs = Date.now() - this.round.startTime;
                         const timeLeft = this.round.roundSecs - Math.floor(deltaTimeMs / 1000);
                         this.timeoutId = setTimeout(() => this.round.timer = timeLeft - 1, 1000);
+                    } else {
+                        this.round.timer = 0;
                     }
                 },
             },
