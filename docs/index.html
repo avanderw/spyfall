@@ -149,12 +149,12 @@
                     state: 'loading',
                     seed: -1,
                     rand: function () { return -1; },
-                    numPlayers: -1,
+                    numPlayers: getQueryParameter('players') === '' ? -1 : Number(getQueryParameter('players')),
                     player: -1,
                     id: getQueryParameter('id'),
                     timeoutId: -1,
                     round: {
-                        counter: 1,
+                        counter: getQueryParameter('round') === '' ? 1 : Number(getQueryParameter('round')),
                         startTime: -1,
                         roundSecs: 600, // round time in seconds
                         timer: 0,
@@ -242,7 +242,11 @@
             },
             methods: {
                 offlineSetup: function () {
-                    this.state = "init-count";
+                    if (this.numPlayers === -1) {
+                        this.state = "init-count";
+                    } else {
+                        this.state = "init-player";
+                    }
                 },
                 chooseCount: function (num) {
                     this.numPlayers = num;
@@ -296,11 +300,17 @@
                     return Math.floor(this.rand() * max);
                 },
                 share: function () {
+                    let args = "?id=" + this.id;
+                    args += "&round=" + this.round.counter;
+                    if (this.numPlayers !== -1) {
+                        args += "&players=" + this.numPlayers;
+                    }
+                    const url = location.protocol + '//' + location.host + location.pathname + args;
                     if (navigator?.share) {
                         navigator.share({
                             title: 'Share Spyfall#' + this.id,
                             text: "Join my game of Spyfall#" + this.id,
-                            url: window.location.href
+                            url: url,
                         })
                             .then(() => console.log('Successful share'))
                             .catch((error) => console.log('Error sharing', error));
